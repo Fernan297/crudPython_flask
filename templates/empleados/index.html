@@ -1,0 +1,88 @@
+{% include 'header.html' %}
+    <hr>
+    <a href="{{url_for('create')}}" class="btn btn-success text-end">Ingresar nuevo empleado</a>
+    <hr>
+    <table class="table table-secondary">
+        <thead class="thead-dark">
+            <tr>
+                <th class="">#</th>
+                <th class="">Foto</th>
+                <th class="">Nombre</th>
+                <th class="">Correo</th>
+                <th class="">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+            <tr>
+                <td class="align-middle">{{empleado[0]}}</td>
+                <td>
+                    <img class="img-thumbnail" width="100px" src="uploads/{{empleado[3]}}" alt="">
+                </td>
+                <td class="align-middle">{{empleado[1]}}</td>
+                <th class="align-middle">{{empleado[2]}}</th>
+                <td class="align-middle justify-content-center"> 
+                    <!--<a class="btn btn-warning" style="margin-right: 10px;" href="/edit/{{empleado[0]}}"></a> -->
+                    <button style="margin-right: 10px" >
+                        <a href="/edit/{{empleado[0]}}" class="text-decoration-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+                                <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+                                <line x1="16" y1="5" x2="19" y2="8" />
+                              </svg>
+                        </a>
+                    </button>
+                    <!--
+                    <a onclick="return confirm('Confirmar eliminacion')" class="text-decoration-none" href="/destroy/{{empleado[0]}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <line x1="4" y1="7" x2="20" y2="7" />
+                            <line x1="10" y1="11" x2="10" y2="17" />
+                            <line x1="14" y1="11" x2="14" y2="17" />
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                          </svg>
+                    </a>
+                    -->
+                    <button type="button" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal{{empleado[0]}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <line x1="4" y1="7" x2="20" y2="7" />
+                            <line x1="10" y1="11" x2="10" y2="17" />
+                            <line x1="14" y1="11" x2="14" y2="17" />
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                          </svg>
+                      </button>
+                      <!-- { modal.show_modal(empleado) }} -->
+                </td>
+            </tr>
+            <!-- MODAL -->
+            <div class="modal fade" id="exampleModal{{empleado[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminacion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body justify-content-center row">
+                        <div class="card" style="width: 18rem;">
+                            <img src="uploads/{{empleado[3]}}" class="card-img-top" alt="image.png">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{empleado[1]}}</h5>
+                                <p class="card-text text-center">{{empleado[2]}}</p>
+                            </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-danger" href= "/destroy/{{empleado[0]}}" >Eliminar</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
+{% include 'footer.html' %}
